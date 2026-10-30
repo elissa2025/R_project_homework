@@ -1,0 +1,511 @@
+---
+title: "Study_Material2"
+author: "Elissa"
+date: "2026-10-30"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+install.packages("tinytex")
+#==============Example 1============================
+
+# Create x with two numbers
+x <- c(0.5, 0.6)
+# Create age with four ages
+age <- c(20, 35, 32, 29)
+# Show min, max, mean, median and quartiles of age
+summary(age)
+#==============Example2=============================
+age<-c(35,24,18,24)
+mean(age)
+#==============Logical=============================
+x <- c(TRUE,FALSE)
+x <- c(T, F) 
+#==============Character=============================
+
+x <- c("a", "b", "c" )
+class<-c("M","F","F","M")
+#================Integer=============================
+
+x <- 9:29 
+#================Complex=============================
+
+x <- c(1+0i, 2+4i)
+#===============Matrix and operation within matrices=
+
+(x<- matrix(1:6,nrow = 2,ncol = 3))
+(y<-matrix(1:6, nrow = 3, ncol = 2))
+x%*%y
+
+#===============List=================================
+
+(x <- list(1, "a", TRUE, 1 + 4i))
+x
+
+# ===============================
+# 1. FACTOR AND MISSING VALUES
+# ===============================
+
+# Create a factor (categories: yes / no)
+x <- factor(c("yes", "yes", "no", "yes", "no"))
+
+# Create a vector with a missing value (NA)
+x <- c(1, 2, NA, 10, 3)
+
+# Check which values are NA
+is.na(x)
+
+# "NA" in quotes is text, not a missing value
+x <- c(1, 2, 4, "NA", 5)
+bad <- is.na(x)
+print(bad)
+
+# Keep only values that are not NA
+x[!bad]
+
+# Keep rows with no missing values in x and y
+x <- c(1, 2, NA, 4, NA, 5)
+y <- c("a", "b", NA, "d", NA, "f")
+good <- complete.cases(x, y)
+good
+
+# ===============================
+# 2. COERCION
+# ===============================
+
+# TRUE = 1 and FALSE = 0, so the sum counts the TRUE values
+sum(c(TRUE, TRUE, FALSE, FALSE, FALSE))
+
+
+# ===============================
+# 3. CREATE A DATA FRAME
+# ===============================
+
+# Create the columns
+studentID <- c(1, 2, 3, 4, 5)
+math_score <- c(12, 17, 10, 9, NA)
+gender <- c("M", "F", "M", "M", "F")
+it_score <- c(13, 18, 11, 10, 19)
+
+# Join the columns into one table
+scoredata <- data.frame(studentID, gender, math_score, it_score)
+scoredata
+
+# Open the table in a viewer window
+View(scoredata)
+
+
+# ===============================
+# 4. ENTER DATA WITH THE KEYBOARD
+# ===============================
+
+# Create an empty table with 3 columns
+data_class2 <- data.frame(height = numeric(0), weight = numeric(0), bmi = numeric(0))
+
+# Open an editor to type the data (close the window when done)
+data_class2 <- edit(data_class2)
+
+
+# ===============================
+# 5. IMPORT DATA FROM A TEXT FILE
+# ===============================
+
+# CHANGE THIS PATH to where class_data.txt is on your computer
+# Read the CSV file (first row = column names)
+data_class <- read.csv("C:/Users/Ntakirutimana Elyssa/Documents/R_Project/HomeWork/students_academic.csv")
+
+# Show the column names
+variable.names(data_class)
+
+# Show the first 6 rows
+head(data_class)
+
+# Show the last 6 rows
+tail(data_class)
+
+# Show rows 10 to 20
+data_class[10:20, ]
+
+# Summary of the WEIGHT column
+summary(data_class$WEIGHT)
+
+# Count how many values are in WEIGHT
+length(data_class$WEIGHT)
+
+# Show all columns except the first one
+data_class[, -1]
+
+# Show the WEIGHT column
+data_class$WEIGHT
+
+
+# ===============================
+# 6. BUILT-IN DATASETS IN R
+# ===============================
+
+# List all datasets that come with R
+data()
+
+# Load the airquality dataset
+data("airquality")
+
+# Show its column names
+variable.names(airquality)
+
+# Show the structure (type of each column)
+str(airquality)
+
+
+# ===============================
+# 7. EXPLORE THE DATA
+# ===============================
+
+# Show the full table
+data_class
+
+# Summary of all columns
+summary(data_class)
+
+# Structure of the table
+str(data_class)
+
+
+# ===============================
+# 8. SUMMARY STATISTICS
+# ===============================
+
+# Mean of each row (1 = rows)
+apply(data_class, 1, mean)
+
+# Standard deviation of each column (2 = columns)
+apply(data_class, 2, sd)
+
+# Mean and SD of HEIGHT
+c(mean(data_class$HEIGHT), sd(data_class$HEIGHT))
+
+# Mean and SD of WEIGHT
+c(mean(data_class$WEIGHT), sd(data_class$WEIGHT))
+
+# Same, but with labels
+c(Mean = mean(data_class$HEIGHT), SD = sd(data_class$HEIGHT))
+c(Mean = mean(data_class$WEIGHT), SD = sd(data_class$WEIGHT))
+
+
+# ===============================
+# 9. CATEGORY vs NUMBER (iris data)
+# ===============================
+
+# Load and look at the iris data
+data("iris")
+head(iris)
+
+# Mean petal length for all flowers
+mean(iris$Petal.Length)
+
+# Mean petal length for each species
+mean(iris$Petal.Length[iris$Species == "setosa"])
+mean(iris$Petal.Length[iris$Species == "versicolor"])
+mean(iris$Petal.Length[iris$Species == "virginica"])
+
+# Shortcut: mean, SD and summary by species
+by(iris$Petal.Length, iris$Species, mean)
+by(iris$Petal.Length, iris$Species, sd)
+by(iris$Petal.Length, iris$Species, summary)
+
+# Boxplot: compare sepal length by species
+boxplot(iris$Sepal.Length ~ iris$Species, data = iris,
+        main = "Comparison of categorical vs quantitative")
+
+
+# ===============================
+# 10. TWO CATEGORIES (UCB admissions)
+# ===============================
+
+# Turn the admissions data into a table
+ucba <- data.frame(UCBAdmissions)
+head(ucba)
+
+# Count admitted and rejected by gender
+cross <- xtabs(Freq ~ Gender + Admit, data = ucba)
+(cross <- xtabs(Freq ~ Gender + Admit, data = ucba))
+
+# Show percentages by gender (each row adds to 1)
+prop.table(cross, 1)
+
+
+# ===============================
+# 11. SIMPSON'S PARADOX
+# ===============================
+
+# Same table, but only for department F
+cross2 <- xtabs(Freq ~ Gender + Admit, data = ucba[ucba$Dept == "F", ])
+prop.table(cross2, 1)
+
+
+# ===============================
+# 12. BAR CHARTS
+# ===============================
+
+# Create small sales data
+dat <- read.table(text = "ProdA ProdB ProdC ProdD
+1 110 50 60 70
+2 120 50 80 65", header = TRUE)
+
+# Bars side by side
+barplot(as.matrix(dat), beside = TRUE, col = c("Red", "green"))
+
+# Other colours (remove # to try)
+# barplot(as.matrix(dat), beside = TRUE, col = c("gold3", "red"))
+
+# Create another dataset
+dat <- read.table(text = "A   B   C   D   E   F    G
+1 10 80 30 90 70 60  90
+2 20 50 70 50 40 10  40
+3 60 80 80 60  60 30 160
+4 20 40 70 80 20 10  70", header = TRUE)
+
+# Stacked bars
+barplot(as.matrix(dat))
+
+
+# ===============================
+# 13. SCATTER PLOTS
+# ===============================
+
+# Three ways to plot weight vs height
+#plot(WEIGHT ~ HEIGHT, data = data_class)
+#plot(data_class$HEIGHT, data_class$WEIGHT)
+# plot(data_class[, 1], data_class[, 2], main = "Graph")
+# Way 1: formula style (y ~ x)
+plot(WEIGHT ~ HEIGHT, data = data_class)
+
+# Way 2: use column names with $
+plot(data_class$HEIGHT, data_class$WEIGHT)
+
+# Way 3: use column numbers (1st column = x, 2nd column = y) and add a title
+plot(data_class[, 1], data_class[, 2], main = "Graph")
+
+# Correlation between height and weight
+cor(data_class$HEIGHT, data_class$WEIGHT)
+
+
+# ===============================
+# 14. LINEAR MODEL
+# ===============================
+
+# Scatter plot with a straight line
+plot(WEIGHT ~ HEIGHT, data = data_class)
+abline(lm(WEIGHT ~ HEIGHT, data = data_class)$coefficient)
+
+# Model: predict height from weight
+data_lm <- lm(HEIGHT ~ WEIGHT, data = data_class)
+summary(data_lm)
+
+# Check the model with diagnostic plots (press Enter in Console for next plot)
+plot(data_lm)
+
+# Histograms
+hist(data_class$HEIGHT)
+hist(data_class$WEIGHT, col = "blue")
+
+
+# ===============================
+# 15. STRAIGHT LINE + CURVED LINE
+# ===============================
+
+plot(WEIGHT ~ HEIGHT, data = data_class)
+abline(lm(WEIGHT ~ HEIGHT, data = data_class)$coefficient)
+
+# Add a smooth curved line in blue
+lines(lowess(data_class$HEIGHT, data_class$WEIGHT), col = "blue")
+
+cor(data_class$HEIGHT, data_class$WEIGHT)
+
+# Show the model coefficients
+lm(WEIGHT ~ HEIGHT, data = data_class)
+
+
+# ===============================
+# 16. CREATE A NEW VARIABLE (BMI)
+# ===============================
+
+# Use column names directly (no need for data_class$)
+attach(data_class)
+
+# Calculate BMI
+(BMI <- WEIGHT / (HEIGHT / 100)^2)
+
+# BMI rounded to 2 decimals
+(BMI <- round(WEIGHT / (HEIGHT / 100)^2, digit = 2))
+
+# Add BMI as a new column and show first 5 rows
+head(cbind(data_class, BMI), n = 5)
+
+# Save the new table
+new_data_class <- cbind(data_class, BMI)
+
+# Show last 10 rows
+tail(cbind(data_class, BMI), n = 10)
+
+
+# ===============================
+# 17. SUMMARY OF BMI
+# ===============================
+
+summary(BMI)
+
+# Stem-and-leaf plot
+stem(BMI, scale = 2)
+
+
+# ===============================
+# 18. DATES
+# ===============================
+
+# Today's date
+today <- Sys.Date()
+
+# Show date as "Month day year"
+format(today, format = "%B %d %Y")
+
+# Show the day name
+format(today, format = "%A")
+
+# Number of days since a birth date
+today <- Sys.Date()
+dob <- as.Date("1982-02-10")
+difftime(today, dob, units = "days")
+
+# Days between two dates
+startdate <- as.Date("2004-02-13")
+enddate <- as.Date("2011-01-22")
+days <- enddate - startdate
+days
+
+
+# ===============================
+# 19. LEADERSHIP DATA
+# ===============================
+
+# Create the columns
+manager <- c(1, 2, 3, 4, 5)
+country <- c("US", "US", "UK", "UK", "UK")
+gender <- c("M", "F", "F", "M", "F")
+age <- c(32, 45, 25, 39, 99)
+q1 <- c(5, 3, 3, 3, 2)
+q2 <- c(4, 5, 5, 3, 2)
+q3 <- c(5, 2, 5, 4, 1)
+q4 <- c(5, 5, 5, NA, 2)
+q5 <- c(5, 5, 2, NA, 1)
+
+# Join into a table (text as factors)
+leadership <- data.frame(manager, country, gender, age, q1, q2, q3, q4, q5,
+                         stringsAsFactors = TRUE)
+
+# Join into a table (text stays as text)
+leadership <- data.frame(manager, country, gender, age, q1, q2, q3, q4, q5)
+
+str(leadership)
+names(leadership)
+
+
+# ===============================
+# 20. MISSING VALUES AND AGE GROUPS
+# ===============================
+
+# Age 99 means missing, so change it to NA
+leadership$age[leadership$age == 99] <- NA
+View(leadership)
+
+# Create age groups
+leadership$agecat[leadership$age > 75] <- "Elder"
+leadership$agecat[leadership$age >= 35 & leadership$age <= 75] <- "Middle Aged"
+leadership$agecat[leadership$age < 35] <- "Young"
+
+# Check missing values in q1 to q5
+is.na(leadership[, 5:9])
+
+# Remove rows with any missing value
+newdata <- na.omit(leadership)
+newdata
+
+
+# ===============================
+# 21. SORTING
+# ===============================
+
+# Order of rows from youngest to oldest
+order(leadership$age)
+
+# Sort the table by age
+newdata2 <- leadership[order(leadership$age), ]
+
+
+# ===============================
+# 22. SELECT COLUMNS AND ROWS
+# ===============================
+
+# Keep columns 5 to 9
+newdata3 <- leadership[, c(5:9)]
+
+# Keep columns by name
+myvars <- c("q1", "q2", "q3", "q4", "q5")
+(newdata3 <- leadership[myvars])
+
+# Remove columns 1 and 2
+newdata4 <- leadership[, c(-1, -2)]
+
+# Remove columns 1 to 5
+(newdata4 <- leadership[, -(1:5)])
+
+# Remove columns 1 and 7
+newdata5 <- leadership[, c(-1, -7)]
+
+# Two ways to get the age column
+leadership[[4]]
+leadership$age
+
+# Remove rows 1 and 3
+newdata6 <- leadership[c(-1, -3), ]
+
+# Keep rows 2, 4 and 5
+newdata6 <- leadership[c(2, 4, 5), ]
+
+# Keep q1-q5 for people aged 35+ or under 24
+newdata7 <- subset(leadership, age >= 35 | age < 24,
+                   select = c(q1, q2, q3, q4, q5))
+
+# Use column names directly
+attach(leadership)
+
+# Keep men older than 30
+(newdata7 <- leadership[gender == "M" & age > 30, ])
+
+# Stop using column names directly
+detach(leadership)
+

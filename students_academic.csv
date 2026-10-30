@@ -1,0 +1,11 @@
+StudentID,Name,Gender,Age,Department,City,MathScore,ScienceScore,ProgrammingScore,GPA
+S001,Amina,Female,22,Data Science,Nairobi,78,81,85,3.7
+S002,Brian,Male,23,AI,Mombasa,65,72,68,3.1
+S003,Chao,Male,24,Big Data,Kigali,82,79,88,3.8
+S004,Diana,Female,22,Data Science,Nairobi,74,70,76,3.4
+S005,Ethan,Male,25,AI,Dar es Salaam,59,61,64,2.8
+S006,Fatuma,Female,23,Big Data,Kampala,91,89,94,4
+S007,George,Male,24,Data Science,Nairobi,68,73,70,3
+S008,Helen,Female,22,AI,Mombasa,84,86,90,3.9
+S009,Isaac,Male,25,Big Data,Kigali,73,75,77,3.3
+S010,Joy,Female,23,Data Science,Kampala,88,90,92,4

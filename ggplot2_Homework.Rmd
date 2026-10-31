@@ -1,0 +1,124 @@
+---
+title: "ggplot2 Homework"
+author: "Elissa"
+date: "2026-10-31"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r install-ggplot2, eval=FALSE}
+# Install ggplot2 (run once if it is not installed)
+install.packages("ggplot2")
+```
+
+```{r load}
+# Load ggplot2 and the built-in datasets used below
+library(ggplot2)
+data("mtcars")      # cars: mpg, weight (wt), cylinders (cyl), ...
+data("iris")        # flowers: sepal / petal sizes for 3 species
+data("economics")   # US economy over time (comes with ggplot2)
+
+# Make cylinders a category so it can be used for colours and groups
+mtcars$cyl <- factor(mtcars$cyl)
+```
+
+```{r geom-bar}
+# 1. geom_bar(): bar chart that counts how many cars have 4, 6 or 8 cylinders
+ggplot(mtcars, aes(x = cyl)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Number of cars by cylinders", x = "Cylinders", y = "Count")
+```
+
+```{r geom-boxplot}
+# 2. geom_boxplot(): compare the spread of mpg for each cylinder group
+ggplot(mtcars, aes(x = cyl, y = mpg, fill = cyl)) +
+  geom_boxplot() +
+  labs(title = "Miles per gallon by cylinders", x = "Cylinders", y = "MPG")
+```
+
+```{r geom-density}
+# 3. geom_density(): smooth curve of how petal length is distributed per species
+ggplot(iris, aes(x = Petal.Length, fill = Species)) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Density of petal length", x = "Petal length")
+```
+
+```{r geom-histogram}
+# 4. geom_histogram(): count of cars in each mpg range
+ggplot(mtcars, aes(x = mpg)) +
+  geom_histogram(binwidth = 2, fill = "orange", colour = "black") +
+  labs(title = "Histogram of MPG", x = "MPG", y = "Count")
+```
+
+```{r geom-hline}
+# 5. geom_hline(): horizontal line showing the average mpg
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_hline(yintercept = mean(mtcars$mpg), colour = "red", linetype = "dashed") +
+  labs(title = "Red line = average MPG", x = "Weight", y = "MPG")
+```
+
+```{r geom-jitter}
+# 6. geom_jitter(): points moved a little so overlapping points can be seen
+ggplot(mtcars, aes(x = cyl, y = mpg, colour = cyl)) +
+  geom_jitter(width = 0.2, size = 2) +
+  labs(title = "MPG by cylinders (jittered points)", x = "Cylinders", y = "MPG")
+```
+
+```{r geom-line}
+# 7. geom_line(): line chart of unemployment over time
+ggplot(economics, aes(x = date, y = unemploy)) +
+  geom_line(colour = "darkgreen") +
+  labs(title = "US unemployment over time", x = "Year", y = "Unemployed (thousands)")
+```
+
+```{r geom-point}
+# 8. geom_point(): scatter plot of car weight vs mpg
+ggplot(mtcars, aes(x = wt, y = mpg, colour = cyl)) +
+  geom_point(size = 3) +
+  labs(title = "Weight vs MPG", x = "Weight (1000 lbs)", y = "MPG")
+```
+
+```{r geom-rug}
+# 9. geom_rug(): small ticks on the axes showing where each value falls
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_rug() +
+  labs(title = "Scatter plot with rug marks", x = "Weight", y = "MPG")
+```
+
+```{r geom-smooth}
+# 10. geom_smooth(): add a fitted straight line (linear model) to the points
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, colour = "blue") +
+  labs(title = "Weight vs MPG with a linear trend", x = "Weight", y = "MPG")
+```
+
+```{r geom-text}
+# 11. geom_text(): write each car's name next to its point
+ggplot(mtcars, aes(x = wt, y = mpg, label = rownames(mtcars))) +
+  geom_point() +
+  geom_text(size = 2.5, vjust = -0.6) +
+  labs(title = "Car names on the scatter plot", x = "Weight", y = "MPG")
+```
+
+```{r geom-violin}
+# 12. geom_violin(): like a boxplot, but shows the shape of the distribution
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_violin() +
+  labs(title = "Sepal length by species", x = "Species", y = "Sepal length")
+```
+
+```{r geom-vline}
+# 13. geom_vline(): vertical line showing the average mpg on a histogram
+ggplot(mtcars, aes(x = mpg)) +
+  geom_histogram(binwidth = 2, fill = "grey", colour = "black") +
+  geom_vline(xintercept = mean(mtcars$mpg), colour = "red", linewidth = 1) +
+  labs(title = "Red line = average MPG", x = "MPG", y = "Count")
+```

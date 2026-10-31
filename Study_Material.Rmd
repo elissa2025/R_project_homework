@@ -31,46 +31,63 @@ plot(pressure)
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 
+```{r install-tinytex, eval=FALSE}
 install.packages("tinytex")
-#==============Example 1============================
+```
 
+```{r example1}
+# Example 1: create numeric vectors and summarise them
 # Create x with two numbers
 x <- c(0.5, 0.6)
 # Create age with four ages
 age <- c(20, 35, 32, 29)
 # Show min, max, mean, median and quartiles of age
 summary(age)
-#==============Example2=============================
+```
+
+```{r example2}
+# Example 2: calculate the mean of a numeric vector
 age<-c(35,24,18,24)
 mean(age)
-#==============Logical=============================
-x <- c(TRUE,FALSE)
-x <- c(T, F) 
-#==============Character=============================
+```
 
+```{r logical}
+# Logical vectors: values are TRUE / FALSE (or T / F)
+x <- c(TRUE,FALSE)
+x <- c(T, F)
+```
+
+```{r character}
+# Character vectors: text values written in quotes
 x <- c("a", "b", "c" )
 class<-c("M","F","F","M")
-#================Integer=============================
+```
 
-x <- 9:29 
-#================Complex=============================
+```{r integer}
+# Integer vectors: whole numbers made with the : operator
+x <- 9:29
+```
 
+```{r complex}
+# Complex vectors: numbers with a real and an imaginary part
 x <- c(1+0i, 2+4i)
-#===============Matrix and operation within matrices=
+```
 
+```{r matrix}
+# Matrices: create two matrices and multiply them with %*%
 (x<- matrix(1:6,nrow = 2,ncol = 3))
 (y<-matrix(1:6, nrow = 3, ncol = 2))
 x%*%y
+```
 
-#===============List=================================
-
+```{r list}
+# List: one object that can hold values of different types
 (x <- list(1, "a", TRUE, 1 + 4i))
 x
+```
 
-# ===============================
-# 1. FACTOR AND MISSING VALUES
-# ===============================
-
+```{r factor-missing}
+# 1. Factors (categories) and missing values (NA)
 # Create a factor (categories: yes / no)
 x <- factor(c("yes", "yes", "no", "yes", "no"))
 
@@ -93,19 +110,16 @@ x <- c(1, 2, NA, 4, NA, 5)
 y <- c("a", "b", NA, "d", NA, "f")
 good <- complete.cases(x, y)
 good
+```
 
-# ===============================
-# 2. COERCION
-# ===============================
-
+```{r coercion}
+# 2. Coercion: R converts TRUE/FALSE to 1/0 when doing maths
 # TRUE = 1 and FALSE = 0, so the sum counts the TRUE values
 sum(c(TRUE, TRUE, FALSE, FALSE, FALSE))
+```
 
-
-# ===============================
-# 3. CREATE A DATA FRAME
-# ===============================
-
+```{r data-frame}
+# 3. Create a data frame (table) from vectors
 # Create the columns
 studentID <- c(1, 2, 3, 4, 5)
 math_score <- c(12, 17, 10, 9, NA)
@@ -118,26 +132,22 @@ scoredata
 
 # Open the table in a viewer window
 View(scoredata)
+```
 
-
-# ===============================
-# 4. ENTER DATA WITH THE KEYBOARD
-# ===============================
-
+```{r keyboard-entry, eval=FALSE}
+# 4. Enter data by hand in an editor window (not run when knitting)
 # Create an empty table with 3 columns
 data_class2 <- data.frame(height = numeric(0), weight = numeric(0), bmi = numeric(0))
 
 # Open an editor to type the data (close the window when done)
 data_class2 <- edit(data_class2)
+```
 
-
-# ===============================
-# 5. IMPORT DATA FROM A TEXT FILE
-# ===============================
-
+```{r import-text}
+# 5. Import data from a CSV file and look at parts of it
 # CHANGE THIS PATH to where class_data.txt is on your computer
 # Read the CSV file (first row = column names)
-data_class <- read.csv("C:/Users/Ntakirutimana Elyssa/Documents/R_Project/HomeWork/students_academic.csv")
+data_class <- read.csv("C:/Users/Ntakirutimana Elyssa/Documents/R_Project/R_project_homework/students_academic.csv")
 
 # Show the column names
 variable.names(data_class)
@@ -162,12 +172,10 @@ data_class[, -1]
 
 # Show the WEIGHT column
 data_class$WEIGHT
+```
 
-
-# ===============================
-# 6. BUILT-IN DATASETS IN R
-# ===============================
-
+```{r builtin-datasets}
+# 6. Built-in datasets that come with R
 # List all datasets that come with R
 data()
 
@@ -179,12 +187,10 @@ variable.names(airquality)
 
 # Show the structure (type of each column)
 str(airquality)
+```
 
-
-# ===============================
-# 7. EXPLORE THE DATA
-# ===============================
-
+```{r explore}
+# 7. Explore the imported data
 # Show the full table
 data_class
 
@@ -193,12 +199,10 @@ summary(data_class)
 
 # Structure of the table
 str(data_class)
+```
 
-
-# ===============================
-# 8. SUMMARY STATISTICS
-# ===============================
-
+```{r summary-stats}
+# 8. Summary statistics: mean and standard deviation
 # Mean of each row (1 = rows)
 apply(data_class, 1, mean)
 
@@ -214,12 +218,10 @@ c(mean(data_class$WEIGHT), sd(data_class$WEIGHT))
 # Same, but with labels
 c(Mean = mean(data_class$HEIGHT), SD = sd(data_class$HEIGHT))
 c(Mean = mean(data_class$WEIGHT), SD = sd(data_class$WEIGHT))
+```
 
-
-# ===============================
-# 9. CATEGORY vs NUMBER (iris data)
-# ===============================
-
+```{r iris}
+# 9. Compare a number across categories (iris data)
 # Load and look at the iris data
 data("iris")
 head(iris)
@@ -240,12 +242,10 @@ by(iris$Petal.Length, iris$Species, summary)
 # Boxplot: compare sepal length by species
 boxplot(iris$Sepal.Length ~ iris$Species, data = iris,
         main = "Comparison of categorical vs quantitative")
+```
 
-
-# ===============================
-# 10. TWO CATEGORIES (UCB admissions)
-# ===============================
-
+```{r ucb-admissions}
+# 10. Compare two categories with a cross table (UCB admissions)
 # Turn the admissions data into a table
 ucba <- data.frame(UCBAdmissions)
 head(ucba)
@@ -256,21 +256,17 @@ cross <- xtabs(Freq ~ Gender + Admit, data = ucba)
 
 # Show percentages by gender (each row adds to 1)
 prop.table(cross, 1)
+```
 
-
-# ===============================
-# 11. SIMPSON'S PARADOX
-# ===============================
-
+```{r simpson}
+# 11. Simpson's paradox: the result changes inside one department
 # Same table, but only for department F
 cross2 <- xtabs(Freq ~ Gender + Admit, data = ucba[ucba$Dept == "F", ])
 prop.table(cross2, 1)
+```
 
-
-# ===============================
-# 12. BAR CHARTS
-# ===============================
-
+```{r bar-charts}
+# 12. Bar charts: side by side and stacked
 # Create small sales data
 dat <- read.table(text = "ProdA ProdB ProdC ProdD
 1 110 50 60 70
@@ -291,12 +287,10 @@ dat <- read.table(text = "A   B   C   D   E   F    G
 
 # Stacked bars
 barplot(as.matrix(dat))
+```
 
-
-# ===============================
-# 13. SCATTER PLOTS
-# ===============================
-
+```{r scatter-plots}
+# 13. Scatter plots and correlation
 # Three ways to plot weight vs height
 #plot(WEIGHT ~ HEIGHT, data = data_class)
 #plot(data_class$HEIGHT, data_class$WEIGHT)
@@ -312,12 +306,10 @@ plot(data_class[, 1], data_class[, 2], main = "Graph")
 
 # Correlation between height and weight
 cor(data_class$HEIGHT, data_class$WEIGHT)
+```
 
-
-# ===============================
-# 14. LINEAR MODEL
-# ===============================
-
+```{r linear-model}
+# 14. Linear model: fit a straight line and check it
 # Scatter plot with a straight line
 plot(WEIGHT ~ HEIGHT, data = data_class)
 abline(lm(WEIGHT ~ HEIGHT, data = data_class)$coefficient)
@@ -332,12 +324,10 @@ plot(data_lm)
 # Histograms
 hist(data_class$HEIGHT)
 hist(data_class$WEIGHT, col = "blue")
+```
 
-
-# ===============================
-# 15. STRAIGHT LINE + CURVED LINE
-# ===============================
-
+```{r straight-curved-line}
+# 15. Add a straight line and a smooth curved line to a plot
 plot(WEIGHT ~ HEIGHT, data = data_class)
 abline(lm(WEIGHT ~ HEIGHT, data = data_class)$coefficient)
 
@@ -348,12 +338,10 @@ cor(data_class$HEIGHT, data_class$WEIGHT)
 
 # Show the model coefficients
 lm(WEIGHT ~ HEIGHT, data = data_class)
+```
 
-
-# ===============================
-# 16. CREATE A NEW VARIABLE (BMI)
-# ===============================
-
+```{r bmi}
+# 16. Create a new variable (BMI) and add it to the table
 # Use column names directly (no need for data_class$)
 attach(data_class)
 
@@ -371,22 +359,18 @@ new_data_class <- cbind(data_class, BMI)
 
 # Show last 10 rows
 tail(cbind(data_class, BMI), n = 10)
+```
 
-
-# ===============================
-# 17. SUMMARY OF BMI
-# ===============================
-
+```{r bmi-summary}
+# 17. Summary of BMI and a stem-and-leaf plot
 summary(BMI)
 
 # Stem-and-leaf plot
 stem(BMI, scale = 2)
+```
 
-
-# ===============================
-# 18. DATES
-# ===============================
-
+```{r dates}
+# 18. Working with dates
 # Today's date
 today <- Sys.Date()
 
@@ -406,12 +390,10 @@ startdate <- as.Date("2004-02-13")
 enddate <- as.Date("2011-01-22")
 days <- enddate - startdate
 days
+```
 
-
-# ===============================
-# 19. LEADERSHIP DATA
-# ===============================
-
+```{r leadership}
+# 19. Create the leadership data frame
 # Create the columns
 manager <- c(1, 2, 3, 4, 5)
 country <- c("US", "US", "UK", "UK", "UK")
@@ -432,12 +414,10 @@ leadership <- data.frame(manager, country, gender, age, q1, q2, q3, q4, q5)
 
 str(leadership)
 names(leadership)
+```
 
-
-# ===============================
-# 20. MISSING VALUES AND AGE GROUPS
-# ===============================
-
+```{r missing-age-groups}
+# 20. Recode missing values and create age groups
 # Age 99 means missing, so change it to NA
 leadership$age[leadership$age == 99] <- NA
 View(leadership)
@@ -453,23 +433,19 @@ is.na(leadership[, 5:9])
 # Remove rows with any missing value
 newdata <- na.omit(leadership)
 newdata
+```
 
-
-# ===============================
-# 21. SORTING
-# ===============================
-
+```{r sorting}
+# 21. Sort rows of a data frame
 # Order of rows from youngest to oldest
 order(leadership$age)
 
 # Sort the table by age
 newdata2 <- leadership[order(leadership$age), ]
+```
 
-
-# ===============================
-# 22. SELECT COLUMNS AND ROWS
-# ===============================
-
+```{r select-columns-rows}
+# 22. Select and remove columns and rows
 # Keep columns 5 to 9
 newdata3 <- leadership[, c(5:9)]
 
@@ -508,4 +484,4 @@ attach(leadership)
 
 # Stop using column names directly
 detach(leadership)
-
+```
